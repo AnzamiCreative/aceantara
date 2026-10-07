@@ -148,9 +148,9 @@ export default {
           'Ceritakan kebutuhanmu lewat WhatsApp, gratis dan tanpa kewajiban lanjut.',
       },
       {
-        title: 'Desain',
+        title: 'Rencana Kerja',
         description:
-          'Kami susun tampilan dan alurnya lebih dulu untuk kamu review.',
+          'Dari hasil obrolan, kita sepakati isi proyek, biaya, dan jadwalnya.',
       },
       {
         title: 'Pengerjaan',

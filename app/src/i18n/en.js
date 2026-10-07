@@ -148,9 +148,9 @@ export default {
           'Tell us what you need via WhatsApp — free, with no obligation.',
       },
       {
-        title: 'Design',
+        title: 'Plan',
         description:
-          'We draft the layout and flow first for you to review.',
+          "From our chat, we agree on what's included, cost, and timeline.",
       },
       {
         title: 'Development',
