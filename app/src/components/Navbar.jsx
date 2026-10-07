@@ -98,7 +98,7 @@ export default function Navbar() {
       {/* ===== Container pill: glassmorphism hijau primary ===== */}
       <nav
         aria-label={t.nav.aria}
-        className={`mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between rounded-full border border-white/70 px-5 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 dark:border-white/10 md:px-7 ${
+        className={`mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between rounded-full border border-white/70 px-5 backdrop-blur-lg backdrop-saturate-150 transition-all duration-300 dark:border-white/10 md:px-7 ${
           scrolled
             ? 'bg-white/80 shadow-[0_0.875rem_3rem_rgba(31,92,58,0.16)] dark:bg-[#16301F]/85 dark:shadow-[0_0.875rem_3rem_rgba(0,0,0,0.5)]'
             : 'bg-mint-50/65 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] dark:bg-[#132019]/75 dark:shadow-[0_0.625rem_2.5rem_rgba(0,0,0,0.45)]'
@@ -163,7 +163,7 @@ export default function Navbar() {
       {open ? (
         <div
           id="menu-mobile"
-          className="mx-auto mt-2 max-w-[1200px] rounded-[1.625rem] border border-white/70 bg-mint-50/85 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-2xl backdrop-saturate-150 dark:border-white/10 dark:bg-[#132019]/92 dark:shadow-[0_0.625rem_2.5rem_rgba(0,0,0,0.5)] lg:hidden"
+          className="mx-auto mt-2 max-w-[1200px] rounded-[1.625rem] border border-white/70 bg-mint-50/85 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-lg backdrop-saturate-150 dark:border-white/10 dark:bg-[#132019]/92 dark:shadow-[0_0.625rem_2.5rem_rgba(0,0,0,0.5)] lg:hidden"
         >
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => {
