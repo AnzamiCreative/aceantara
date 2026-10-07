@@ -68,7 +68,7 @@ export default function Footer() {
                     {t.kontak.info.whatsapp}:
                   </span>{' '}
                   <span className="text-muted transition hover:text-forest-700 dark:text-white/70 dark:hover:text-mint-200">
-                    +62 856-3198-6842
+                    +62 856-5199-6642
                   </span>
                 </a>
               </li>

@@ -16,6 +16,7 @@ export default {
     themeDark: 'Dark mode',
     cta: 'Free Consultation',
     waCta: 'Hi Aceantara, I would like a free consultation.',
+    waFloat: 'Chat on WhatsApp',
     links: [
       { label: 'About', href: '#tentang' },
       { label: 'Services', href: '#layanan' },

@@ -6,6 +6,7 @@ import Portofolio from './components/Portofolio.jsx';
 import Proses from './components/Proses.jsx';
 import Kontak from './components/Kontak.jsx';
 import Footer from './components/Footer.jsx';
+import FloatingWa from './components/FloatingWa.jsx';
 import { LangProvider } from './i18n/index.jsx';
 import { ThemeProvider } from './theme/index.jsx';
 
@@ -30,6 +31,9 @@ export default function App() {
           </main>
 
           <Footer />
+
+          {/* Tombol WhatsApp melayang */}
+          <FloatingWa />
         </div>
       </LangProvider>
     </ThemeProvider>

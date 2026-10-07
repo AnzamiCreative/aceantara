@@ -30,7 +30,7 @@ export default function Kontak() {
     {
       id: 'whatsapp',
       label: copy.info.whatsapp,
-      value: '+62 856-3198-6842',
+      value: '+62 856-5199-6642',
       icon: MessageCircle,
       href: waLink(t.nav.waCta),
     },
