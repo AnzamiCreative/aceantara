@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nerava — Jasa Desain UI/UX & Pembuatan Website</title>
+  <meta name="description" content="Nerava adalah jasa desain UI/UX (Figma) dan pembuatan website untuk UMKM, personal brand, dan bisnis kecil. Konsultasi gratis." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mint: 'var(--c-bg)',
+            primary: 'var(--c-primary)',
+            primarydark: 'var(--c-primary-dark)',
+            accent: 'var(--c-accent)',
+            ink: 'var(--c-text)',
+            muted: 'var(--c-muted)',
+            line: 'var(--c-border)',
+            deep: 'var(--c-footer)'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+          },
+          maxWidth: { container: '1100px' },
+          borderRadius: { card: '20px' }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    /* ===== CSS VARIABLES (warna brand Nerava) ===== */
+    :root {
+      --c-bg: #F3FAF5;
+      --c-white: #FFFFFF;
+      --c-primary: #1F5C3A;
+      --c-primary-dark: #17492E;
+      --c-accent: #BFE8C9;
+      --c-text: #10281B;
+      --c-muted: #5B7266;
+      --c-border: #D5E8DB;
+      --c-footer: #0F3321;
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--c-text);
+      background: var(--c-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--c-accent); color: var(--c-text); }
+
+    /* ===== LABEL MONO ===== */
+    .label-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--c-primary);
+      font-weight: 600;
+    }
+
+    /* ===== HIGHLIGHT MARKER PADA JUDUL ===== */
+    .marker { position: relative; display: inline-block; z-index: 1; }
+    .marker::after {
+      content: "";
+      position: absolute;
+      left: -0.08em; right: -0.08em;
+      bottom: 0.04em;
+      height: 0.40em;
+      background: var(--c-accent);
+      z-index: -1;
+      border-radius: 0.12em;
+    }
+
+    /* ===== KARTU ===== */
+    .card {
+      background: var(--c-white);
+      border: 1px solid var(--c-border);
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(16, 40, 27, 0.04);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 34px rgba(16, 40, 27, 0.09);
+      border-color: var(--c-accent);
+    }
+
+    /* ===== ANIMASI FADE-UP ===== */
+    .fade-up { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-up.in { opacity: 1; transform: none; }
+
+    /* ===== MARQUEE ===== */
+    .marquee { overflow: hidden; }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 32s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ===== HERO: JENDELA BROWSER ===== */
+    .browser {
+      background: var(--c-white);
+      border: 1px solid var(--c-border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(31, 92, 58, 0.16);
+    }
+    .browser-bar {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 14px;
+      background: #EDF6F0;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-url {
+      flex: 1;
+      background: var(--c-white);
+      border: 1px solid var(--c-border);
+      border-radius: 999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--c-muted);
+      padding: 5px 12px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .wf-block { background: var(--c-accent); border-radius: 8px; }
+    .wf-soft { background: #EDF6F0; border: 1px dashed var(--c-border); border-radius: 8px; }
+    .float-card {
+      position: absolute;
+      background: var(--c-white);
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      box-shadow: 0 14px 34px rgba(16, 40, 27, 0.14);
+      padding: 12px 14px;
+      animation: floaty 4s ease-in-out infinite;
+    }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+
+    /* ===== THUMB PORTOFOLIO ===== */
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 14px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .thumb-a { background: linear-gradient(140deg, #D8F3E1 0%, #BFE8C9 100%); }
+    .thumb-b { background: linear-gradient(140deg, #1F5C3A 0%, #2E7D52 100%); }
+    .thumb-c { background: linear-gradient(140deg, #EAF7EF 0%, #CDEED9 100%); }
+    .thumb-bar { height: 9px; border-radius: 999px; background: rgba(255,255,255,.75); }
+    .thumb-bar.dark { background: rgba(31,92,58,.28); }
+    .thumb-hero { flex: 1; border-radius: 10px; background: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.8); }
+    .thumb-hero.dark { background: rgba(191,232,201,.35); border-color: rgba(191,232,201,.5); }
+    .thumb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .thumb-grid span { height: 26px; border-radius: 7px; background: rgba(255,255,255,.7); }
+    .thumb-grid span.dark { background: rgba(31,92,58,.22); }
+
+    /* ===== TIMELINE PROSES ===== */
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--c-primary);
+      color: var(--c-white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600; font-size: 15px;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 6px var(--c-accent);
+    }
+
+    /* ===== ACCORDION ===== */
+    .acc-item { border: 1px solid var(--c-border); border-radius: 18px; background: var(--c-white); transition: border-color .25s ease, box-shadow .25s ease; overflow: hidden; }
+    .acc-item.open { border-color: var(--c-primary); box-shadow: 0 8px 24px rgba(31, 92, 58, 0.08); }
+    .acc-btn { width: 100%; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 18px 20px; text-align: left; font-weight: 600; color: var(--c-text); }
+    .acc-btn:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; border-radius: 18px; }
+    .acc-btn:hover { color: var(--c-primary); }
+    .acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .32s ease; }
+    .acc-item.open .acc-panel { grid-template-rows: 1fr; }
+    .acc-panel > div { overflow: hidden; }
+    .acc-icon { transition: transform .3s ease; flex-shrink: 0; color: var(--c-primary); }
+    .acc-item.open .acc-icon { transform: rotate(45deg); }
+
+    /* ===== FOCUS VISIBLE GLOBAL ===== */
+    a:focus-visible, button:focus-visible, input:focus-visible,
+    textarea:focus-visible, select:focus-visible {
+      outline: 2px solid var(--c-primary);
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+
+    /* ===== DEKORASI CTA ===== */
+    .deco-ring {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(191, 232, 201, 0.25);
+      pointer-events: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up { opacity: 1 !important; transform: none !important; transition: none !important; }
+      .marquee-track, .float-card { animation: none !important; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+
+  <!-- ============================================================= -->
+  <!-- 1. NAVBAR (sticky, blur)                                      -->
+  <!-- ============================================================= -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-transparent">
+    <nav class="mx-auto max-w-container px-5 lg:px-6">
+      <div class="flex h-[72px] items-center justify-between">
+
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-2 text-xl font-extrabold tracking-tight text-ink">
+          Nerava<span class="h-2 w-2 rounded-full bg-primary inline-block" aria-hidden="true"></span>
+        </a>
+
+        <!-- Menu desktop -->
+        <ul class="hidden lg:flex items-center gap-6 text-[15px] font-medium text-muted">
+          <li><a href="#layanan" class="hover:text-ink transition">Layanan</a></li>
+          <li><a href="#portofolio" class="hover:text-ink transition">Portofolio</a></li>
+          <li><a href="#proses" class="hover:text-ink transition">Proses</a></li>
+          <li><a href="#faq" class="hover:text-ink transition">FAQ</a></li>
+          <li><a href="#syarat" class="hover:text-ink transition">Syarat &amp; Ketentuan</a></li>
+          <li><a href="#kontak" class="hover:text-ink transition">Kontak</a></li>
+        </ul>
+
+        <!-- CTA desktop -->
+        <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ingin%20konsultasi%20gratis." target="_blank" rel="noopener"
+           class="hidden lg:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white hover:bg-primarydark transition">
+          <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+          Konsultasi Gratis
+        </a>
+
+        <!-- Hamburger -->
+        <button id="navToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobileMenu"
+                class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink">
+          <i data-lucide="menu" class="h-5 w-5" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Menu mobile -->
+      <div id="mobileMenu" class="lg:hidden hidden pb-5">
+        <ul class="flex flex-col gap-1 rounded-2xl border border-line bg-white p-3 shadow-lg text-[15px] font-medium">
+          <li><a href="#layanan" class="block rounded-xl px-4 py-3 hover:bg-mint">Layanan</a></li>
+          <li><a href="#portofolio" class="block rounded-xl px-4 py-3 hover:bg-mint">Portofolio</a></li>
+          <li><a href="#proses" class="block rounded-xl px-4 py-3 hover:bg-mint">Proses</a></li>
+          <li><a href="#faq" class="block rounded-xl px-4 py-3 hover:bg-mint">FAQ</a></li>
+          <li><a href="#syarat" class="block rounded-xl px-4 py-3 hover:bg-mint">Syarat &amp; Ketentuan</a></li>
+          <li><a href="#kontak" class="block rounded-xl px-4 py-3 hover:bg-mint">Kontak</a></li>
+          <li class="pt-1">
+            <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ingin%20konsultasi%20gratis." target="_blank" rel="noopener"
+               class="flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white">
+              <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+              Konsultasi Gratis
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================================================= -->
+    <!-- 2. HERO                                                       -->
+    <!-- ============================================================= -->
+    <section id="hero" class="bg-white pt-28 pb-20 lg:pt-36 lg:pb-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+
+          <!-- Kolom kiri -->
+          <div class="fade-up">
+            <span class="label-mono inline-block rounded-full border border-line bg-mint px-4 py-2">
+              UI/UX DESIGN · WEBSITE
+            </span>
+
+            <h1 class="mt-6 text-[2rem] font-extrabold leading-[1.12] tracking-tight text-ink sm:text-[2.6rem] lg:text-[3.1rem]">
+              Desain UI/UX dan Website yang Bikin
+              <span class="marker">Bisnismu Terlihat Profesional</span>
+            </h1>
+
+            <p class="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+              Dari desain di Figma sampai website jadi. Cepat, rapi, dan bisa disesuaikan dengan kebutuhan serta budget kamu.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3">
+              <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ingin%20konsultasi%20gratis." target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(31,92,58,.25)] hover:bg-primarydark hover:-translate-y-0.5 transition">
+                <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+                Konsultasi Gratis
+              </a>
+              <a href="#layanan"
+                 class="inline-flex items-center gap-2 rounded-full border-2 border-primary px-6 py-3.5 text-sm font-semibold text-primary hover:bg-mint transition">
+                Lihat Layanan
+                <i data-lucide="arrow-down" class="h-4 w-4" aria-hidden="true"></i>
+              </a>
+            </div>
+
+            <!-- 3 poin -->
+            <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-muted">
+              <li class="flex items-center gap-2">
+                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-accent" aria-hidden="true">
+                  <i data-lucide="check" class="h-3.5 w-3.5 text-primary"></i>
+                </span>
+                Konsultasi gratis
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-accent" aria-hidden="true">
+                  <i data-lucide="check" class="h-3.5 w-3.5 text-primary"></i>
+                </span>
+                Revisi sesuai kesepakatan
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-accent" aria-hidden="true">
+                  <i data-lucide="check" class="h-3.5 w-3.5 text-primary"></i>
+                </span>
+                Sesuai budget
+              </li>
+            </ul>
+          </div>
+
+          <!-- Kolom kanan: ilustrasi browser -->
+          <div class="fade-up relative">
+            <div class="browser">
+              <div class="browser-bar">
+                <span class="dot" style="background:#F87171" aria-hidden="true"></span>
+                <span class="dot" style="background:#FBBF24" aria-hidden="true"></span>
+                <span class="dot" style="background:#34D399" aria-hidden="true"></span>
+                <span class="browser-url">nerava.id/project-baru</span>
+              </div>
+
+              <!-- Wireframe -->
+              <div class="space-y-3 p-5">
+                <div class="flex items-center justify-between">
+                  <div class="wf-block h-4 w-20"></div>
+                  <div class="flex gap-2">
+                    <div class="wf-soft h-3 w-10"></div>
+                    <div class="wf-soft h-3 w-10"></div>
+                    <div class="wf-block h-3 w-14" style="background:#1F5C3A"></div>
+                  </div>
+                </div>
+
+                <div class="wf-soft h-24 w-full"></div>
+
+                <div class="flex gap-3">
+                  <div class="wf-block h-8 w-28 rounded-full" style="background:#1F5C3A"></div>
+                  <div class="wf-soft h-8 w-24 rounded-full"></div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="wf-soft h-16 w-full"></div>
+                  <div class="wf-soft h-16 w-full"></div>
+                  <div class="wf-block h-16 w-full"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kartu mengambang -->
+            <div class="float-card -bottom-6 -left-2 sm:-left-6 max-w-[220px]">
+              <div class="flex items-center gap-2">
+                <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-accent" aria-hidden="true">
+                  <i data-lucide="figma" class="h-4 w-4 text-primary"></i>
+                </span>
+                <div>
+                  <p class="text-[13px] font-bold leading-tight text-ink">Prototype Figma</p>
+                  <p class="text-[11px] leading-tight text-muted">siap dikembangkan</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 3. MARQUEE                                                    -->
+    <!-- ============================================================= -->
+    <section class="marquee bg-primary py-4" aria-label="Daftar layanan Nerava">
+      <div class="marquee-track">
+        <!-- konten (diulang 2x agar loop mulus) -->
+        <div class="flex shrink-0 items-center">
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">UI/UX Design</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Website</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Figma</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Prototype Interaktif</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Design System</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Landing Page</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Company Profile</span><span class="text-accent">·</span>
+        </div>
+        <div class="flex shrink-0 items-center" aria-hidden="true">
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">UI/UX Design</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Website</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Figma</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Prototype Interaktif</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Design System</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Landing Page</span><span class="text-accent">·</span>
+          <span class="px-6 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white">Company Profile</span><span class="text-accent">·</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 4. LAYANAN                                                    -->
+    <!-- ============================================================= -->
+    <section id="layanan" class="bg-mint py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="fade-up max-w-2xl">
+          <p class="label-mono">01 — Layanan</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Dua layanan untuk kebutuhan <span class="marker">digitalmu</span>
+          </h2>
+          <p class="mt-4 text-muted">
+            Pilih salah satu atau gabungkan. Semua bisa dikonsultasikan dulu sebelum mulai.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-2">
+          <!-- Kartu 1: UI/UX -->
+          <article class="card fade-up p-7 sm:p-9">
+            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="pen-tool" class="h-6 w-6 text-primary"></i>
+            </span>
+            <h3 class="mt-6 text-xl font-bold text-ink sm:text-2xl">UI/UX Design</h3>
+            <p class="mt-3 text-muted leading-relaxed">
+              Desain tampilan aplikasi dan website yang rapi, mudah dipakai, dan siap dikembangkan.
+            </p>
+            <ul class="mt-6 space-y-3 text-[15px] text-ink">
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Desain mobile app &amp; website di Figma
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Desain dashboard
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Prototipe interaktif
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Design system yang konsisten
+              </li>
+            </ul>
+            <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ingin%20konsultasi%20tentang%20layanan%20UI%2FUX%20Design." target="_blank" rel="noopener"
+               class="mt-8 inline-flex items-center gap-2 rounded-full border-2 border-primary px-6 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-white transition">
+              <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+              Konsultasi
+            </a>
+          </article>
+
+          <!-- Kartu 2: Website -->
+          <article class="card fade-up p-7 sm:p-9">
+            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="code-2" class="h-6 w-6 text-primary"></i>
+            </span>
+            <h3 class="mt-6 text-xl font-bold text-ink sm:text-2xl">Pembuatan Website</h3>
+            <p class="mt-3 text-muted leading-relaxed">
+              Landing page, company profile, sampai website custom untuk UMKM dan personal branding.
+            </p>
+            <ul class="mt-6 space-y-3 text-[15px] text-ink">
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Landing page promosi &amp; produk
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Website portofolio / company profile
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Responsif di HP dan laptop
+              </li>
+              <li class="flex items-start gap-3">
+                <i data-lucide="check-circle-2" class="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true"></i>
+                Tombol WhatsApp &amp; form kontak
+              </li>
+            </ul>
+            <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ingin%20konsultasi%20tentang%20layanan%20pembuatan%20website." target="_blank" rel="noopener"
+               class="mt-8 inline-flex items-center gap-2 rounded-full border-2 border-primary px-6 py-3 text-sm font-semibold text-primary hover:bg-primary hover:text-white transition">
+              <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+              Konsultasi
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 5. KENAPA NERAVA                                              -->
+    <!-- ============================================================= -->
+    <section class="bg-white py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="fade-up max-w-2xl">
+          <p class="label-mono">02 — Keunggulan</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Kenapa pilih <span class="marker">Nerava</span>?
+          </h2>
+        </div>
+
+        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="card fade-up p-6">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="layout-grid" class="h-5 w-5 text-primary"></i>
+            </span>
+            <h3 class="mt-5 font-bold text-ink">Desain Rapi &amp; Konsisten</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">Grid, spacing, dan komponen dijaga konsisten di setiap halaman.</p>
+          </div>
+
+          <div class="card fade-up p-6">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="clock" class="h-5 w-5 text-primary"></i>
+            </span>
+            <h3 class="mt-5 font-bold text-ink">Pengerjaan Tepat Waktu</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">Estimasi jelas di awal dan progres dikirim secara berkala.</p>
+          </div>
+
+          <div class="card fade-up p-6">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="message-circle" class="h-5 w-5 text-primary"></i>
+            </span>
+            <h3 class="mt-5 font-bold text-ink">Komunikasi Cepat via WhatsApp</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">Diskusi ringan dan responsif tanpa proses yang berbelit.</p>
+          </div>
+
+          <div class="card fade-up p-6">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="wallet" class="h-5 w-5 text-primary"></i>
+            </span>
+            <h3 class="mt-5 font-bold text-ink">Harga Fleksibel Sesuai Budget</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">Scope disesuaikan dulu supaya biaya tetap masuk akal untukmu.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 6. PORTOFOLIO                                                 -->
+    <!-- ============================================================= -->
+    <section id="portofolio" class="bg-mint py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="fade-up max-w-2xl">
+          <p class="label-mono">03 — Portofolio</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Contoh <span class="marker">karya kami</span>
+          </h2>
+        </div>
+
+        <!-- Tab filter -->
+        <div class="fade-up mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter portofolio">
+          <button class="filter-btn rounded-full border-2 border-primary bg-primary px-5 py-2 text-sm font-semibold text-white transition" data-filter="all" role="tab" aria-selected="true">Semua</button>
+          <button class="filter-btn rounded-full border-2 border-primary bg-transparent px-5 py-2 text-sm font-semibold text-primary transition hover:bg-accent" data-filter="uiux" role="tab" aria-selected="false">UI/UX</button>
+          <button class="filter-btn rounded-full border-2 border-primary bg-transparent px-5 py-2 text-sm font-semibold text-primary transition hover:bg-accent" data-filter="website" role="tab" aria-selected="false">Website</button>
+        </div>
+
+        <!-- Grid -->
+        <div id="portfolioGrid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+          <article class="portfolio-item card fade-up overflow-hidden p-4" data-category="uiux">
+            <div class="thumb thumb-a" role="img" aria-label="Thumbnail mockup aplikasi kasir UMKM">
+              <div class="thumb-bar dark w-16"></div>
+              <div class="thumb-hero"></div>
+              <div class="thumb-grid"><span></span><span></span><span></span></div>
+            </div>
+            <div class="px-2 pt-5 pb-2">
+              <span class="label-mono rounded-full bg-accent px-3 py-1 text-[10px] text-primary">UI/UX</span>
+              <h3 class="mt-3 font-bold text-ink">Aplikasi Kasir UMKM</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">Desain aplikasi kasir sederhana di Figma. [GANTI dengan karya aslimu nanti]</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item card fade-up overflow-hidden p-4" data-category="website">
+            <div class="thumb thumb-b" role="img" aria-label="Thumbnail mockup website company profile">
+              <div class="thumb-bar w-16"></div>
+              <div class="thumb-hero dark"></div>
+              <div class="thumb-grid"><span class="dark"></span><span class="dark"></span><span class="dark"></span></div>
+            </div>
+            <div class="px-2 pt-5 pb-2">
+              <span class="label-mono rounded-full bg-accent px-3 py-1 text-[10px] text-primary">Website</span>
+              <h3 class="mt-3 font-bold text-ink">Company Profile Manufaktur</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">Website profil perusahaan multi-halaman. [GANTI dengan karya aslimu nanti]</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item card fade-up overflow-hidden p-4" data-category="uiux">
+            <div class="thumb thumb-c" role="img" aria-label="Thumbnail mockup dashboard analytics">
+              <div class="thumb-bar dark w-20"></div>
+              <div class="flex gap-2 flex-1">
+                <div class="w-1/3 thumb-hero"></div>
+                <div class="flex-1 flex flex-col gap-2">
+                  <div class="thumb-hero flex-1"></div>
+                  <div class="thumb-hero flex-1"></div>
+                </div>
+              </div>
+            </div>
+            <div class="px-2 pt-5 pb-2">
+              <span class="label-mono rounded-full bg-accent px-3 py-1 text-[10px] text-primary">UI/UX</span>
+              <h3 class="mt-3 font-bold text-ink">Dashboard Analytics</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">Antarmuka dashboard untuk memantau performa. [GANTI dengan karya aslimu nanti]</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item card fade-up overflow-hidden p-4" data-category="website">
+            <div class="thumb thumb-a" role="img" aria-label="Thumbnail mockup landing page produk">
+              <div class="thumb-bar dark w-14"></div>
+              <div class="thumb-hero"></div>
+              <div class="flex gap-2">
+                <div class="h-7 w-24 rounded-full thumb-bar dark" style="background:#1F5C3A"></div>
+                <div class="h-7 w-20 rounded-full thumb-bar dark"></div>
+              </div>
+            </div>
+            <div class="px-2 pt-5 pb-2">
+              <span class="label-mono rounded-full bg-accent px-3 py-1 text-[10px] text-primary">Website</span>
+              <h3 class="mt-3 font-bold text-ink">Landing Page Produk</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">Halaman promosi produk dengan CWA jelas. [GANTI dengan karya aslimu nanti]</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item card fade-up overflow-hidden p-4" data-category="uiux">
+            <div class="thumb thumb-b" role="img" aria-label="Thumbnail mockup aplikasi booking klinik">
+              <div class="thumb-bar w-16"></div>
+              <div class="thumb-hero dark"></div>
+              <div class="thumb-grid"><span class="dark"></span><span class="dark"></span><span class="dark"></span></div>
+            </div>
+            <div class="px-2 pt-5 pb-2">
+              <span class="label-mono rounded-full bg-accent px-3 py-1 text-[10px] text-primary">UI/UX</span>
+              <h3 class="mt-3 font-bold text-ink">Aplikasi Booking Klinik</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">Alur booking janji temu yang ringkas. [GANTI dengan karya aslimu nanti]</p>
+            </div>
+          </article>
+
+          <article class="portfolio-item card fade-up overflow-hidden p-4" data-category="website">
+            <div class="thumb thumb-c" role="img" aria-label="Thumbnail mockup website portofolio fotografer">
+              <div class="thumb-bar dark w-24"></div>
+              <div class="grid grid-cols-3 gap-2 flex-1">
+                <div class="thumb-hero"></div>
+                <div class="thumb-hero"></div>
+                <div class="thumb-hero"></div>
+              </div>
+              <div class="thumb-bar dark w-28"></div>
+            </div>
+            <div class="px-2 pt-5 pb-2">
+              <span class="label-mono rounded-full bg-accent px-3 py-1 text-[10px] text-primary">Website</span>
+              <h3 class="mt-3 font-bold text-ink">Portofolio Fotografer</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-muted">Galeri visual dengan fokus pada karya. [GANTI dengan karya aslimu nanti]</p>
+            </div>
+          </article>
+
+        </div>
+
+        <p id="portfolioEmpty" class="hidden mt-8 text-center text-sm text-muted">Belum ada karya pada kategori ini.</p>
+
+        <p class="mt-8 text-center text-sm text-muted">Beberapa tampilan adalah contoh ilustrasi.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 7. PROSES                                                     -->
+    <!-- ============================================================= -->
+    <section id="proses" class="bg-white py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="fade-up max-w-2xl">
+          <p class="label-mono">04 — Proses</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Alur pemesanan yang <span class="marker">jelas</span>
+          </h2>
+        </div>
+
+        <!-- Timeline: horizontal di desktop, vertikal di mobile -->
+        <ol class="mt-12 grid gap-8 md:grid-cols-5 md:gap-4 relative">
+          <li class="fade-up relative flex gap-5 md:flex-col md:gap-4 md:text-center md:items-center">
+            <span class="step-num">01</span>
+            <div class="md:max-w-[190px]">
+              <h3 class="font-bold text-ink">Konsultasi Gratis via WhatsApp</h3>
+              <p class="mt-1.5 text-sm text-muted">Ceritakan kebutuhanmu.</p>
+            </div>
+          </li>
+
+          <li class="fade-up relative flex gap-5 md:flex-col md:gap-4 md:text-center md:items-center">
+            <span class="step-num">02</span>
+            <div class="md:max-w-[190px]">
+              <h3 class="font-bold text-ink">Sepakati Scope &amp; Harga</h3>
+              <p class="mt-1.5 text-sm text-muted">Ruang lingkup dan biaya jelas di awal.</p>
+            </div>
+          </li>
+
+          <li class="fade-up relative flex gap-5 md:flex-col md:gap-4 md:text-center md:items-center">
+            <span class="step-num">03</span>
+            <div class="md:max-w-[190px]">
+              <h3 class="font-bold text-ink">DP 50%</h3>
+              <p class="mt-1.5 text-sm text-muted">Booking slot, pengerjaan dimulai setelah DP diterima.</p>
+            </div>
+          </li>
+
+          <li class="fade-up relative flex gap-5 md:flex-col md:gap-4 md:text-center md:items-center">
+            <span class="step-num">04</span>
+            <div class="md:max-w-[190px]">
+              <h3 class="font-bold text-ink">Pengerjaan, Preview &amp; Revisi</h3>
+              <p class="mt-1.5 text-sm text-muted">Update progres dan revisi sesuai kesepakatan.</p>
+            </div>
+          </li>
+
+          <li class="fade-up relative flex gap-5 md:flex-col md:gap-4 md:text-center md:items-center">
+            <span class="step-num">05</span>
+            <div class="md:max-w-[190px]">
+              <h3 class="font-bold text-ink">Pelunasan &amp; Serah Terima</h3>
+              <p class="mt-1.5 text-sm text-muted">File final dikirim setelah pelunasan.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 8. FAQ                                                        -->
+    <!-- ============================================================= -->
+    <section id="faq" class="bg-mint py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="fade-up max-w-2xl">
+          <p class="label-mono">05 — FAQ</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Masih ada <span class="marker">pertanyaan</span>?
+          </h2>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <!-- Accordion FAQ -->
+          <div class="lg:col-span-2 space-y-3" id="faqList">
+            <div class="acc-item open fade-up">
+              <button class="acc-btn" aria-expanded="true" aria-controls="faq-1" id="faq-btn-1">
+                <span>Berapa lama waktu pengerjaan?</span>
+                <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+              </button>
+              <div class="acc-panel" id="faq-1" role="region" aria-labelledby="faq-btn-1">
+                <div><p class="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  Landing page umumnya 3–7 hari kerja, sedangkan UI/UX 5–14 hari kerja tergantung jumlah layar dan tingkat kompleksitas. Estimasi final dikonfirmasi saat penyusunan scope.
+                </p></div>
+              </div>
+            </div>
+
+            <div class="acc-item fade-up">
+              <button class="acc-btn" aria-expanded="false" aria-controls="faq-2" id="faq-btn-2">
+                <span>Apakah bisa request fitur tertentu?</span>
+                <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+              </button>
+              <div class="acc-panel" id="faq-2" role="region" aria-labelledby="faq-btn-2">
+                <div><p class="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  Bisa. Sebutkan fitur yang kamu butuhkan saat konsultasi, nanti kami masukkan ke dalam scope beserta estimasi harganya sebelum DP.
+                </p></div>
+              </div>
+            </div>
+
+            <div class="acc-item fade-up">
+              <button class="acc-btn" aria-expanded="false" aria-controls="faq-3" id="faq-btn-3">
+                <span>Apakah ada revisi?</span>
+                <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+              </button>
+              <div class="acc-panel" id="faq-3" role="region" aria-labelledby="faq-btn-3">
+                <div><p class="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  Ada. Jumlah revisi mengikuti kesepakatan di awal. Revisi besar di luar scope yang disepakati dapat dikenakan biaya tambahan.
+                </p></div>
+              </div>
+            </div>
+
+            <div class="acc-item fade-up">
+              <button class="acc-btn" aria-expanded="false" aria-controls="faq-4" id="faq-btn-4">
+                <span>Bagaimana cara pembayarannya?</span>
+                <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+              </button>
+              <div class="acc-panel" id="faq-4" role="region" aria-labelledby="faq-btn-4">
+                <div><p class="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  DP 50% di awal untuk booking slot, lalu sisanya dilunasi sebelum file final diserahkan. Pembayaran dilakukan via transfer bank.
+                </p></div>
+              </div>
+            </div>
+
+            <div class="acc-item fade-up">
+              <button class="acc-btn" aria-expanded="false" aria-controls="faq-5" id="faq-btn-5">
+                <span>Apakah saya mendapatkan file desain / source code?</span>
+                <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+              </button>
+              <div class="acc-panel" id="faq-5" role="region" aria-labelledby="faq-btn-5">
+                <div><p class="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  Ya. Setelah pelunasan, kamu mendapatkan file Figma dan/atau source code website sesuai jenis layanan yang dipesan.
+                </p></div>
+              </div>
+            </div>
+
+            <div class="acc-item fade-up">
+              <button class="acc-btn" aria-expanded="false" aria-controls="faq-6" id="faq-btn-6">
+                <span>Bisakah konsultasi dulu sebelum order?</span>
+                <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+              </button>
+              <div class="acc-panel" id="faq-6" role="region" aria-labelledby="faq-btn-6">
+                <div><p class="px-5 pb-5 text-sm leading-relaxed text-muted">
+                  Tentu. Konsultasi gratis dan tanpa kewajiban lanjut. Ceritakan kebutuhanmu dulu, baru kita putuskan lanjut atau tidak.
+                </p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kotak bantuan -->
+          <aside class="fade-up self-start rounded-card border border-line bg-white p-7 shadow-[0_4px_20px_rgba(16,40,27,.05)]">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+              <i data-lucide="help-circle" class="h-5 w-5 text-primary"></i>
+            </span>
+            <p class="mt-5 font-semibold leading-relaxed text-ink">
+              Belum ketemu jawabannya? Tanya langsung saja, gratis dan tanpa kewajiban.
+            </p>
+            <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ada%20pertanyaan%20yang%20ingin%20saya%20tanyakan." target="_blank" rel="noopener"
+               class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white hover:bg-primarydark transition">
+              <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+              Tanya via WhatsApp
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 9. SYARAT & KETENTUAN                                         -->
+    <!-- ============================================================= -->
+    <section id="syarat" class="bg-white py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="fade-up max-w-2xl">
+          <p class="label-mono">06 — Syarat &amp; Ketentuan</p>
+          <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+            Biar sama-sama nyaman, <span class="marker">ini ketentuannya</span>
+          </h2>
+        </div>
+
+        <div class="mt-12 space-y-3" id="termsList">
+          <!-- 01 -->
+          <div class="acc-item open fade-up">
+            <button class="acc-btn" aria-expanded="true" aria-controls="sy-1" id="sy-btn-1">
+              <span class="flex gap-3"><span class="font-mono text-primary">01</span><span>Cara Memesan</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-1" role="region" aria-labelledby="sy-btn-1">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Konsultasi gratis via WhatsApp dulu, lalu sepakati scope dan harga sebelum DP.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 02 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-2" id="sy-btn-2">
+              <span class="flex gap-3"><span class="font-mono text-primary">02</span><span>Sistem Pembayaran</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-2" role="region" aria-labelledby="sy-btn-2">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                DP 50% di awal untuk booking slot. Pengerjaan dimulai setelah DP diterima. Sisanya dilunasi sebelum file final diserahkan.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 03 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-3" id="sy-btn-3">
+              <span class="flex gap-3"><span class="font-mono text-primary">03</span><span>Pembatalan</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-3" role="region" aria-labelledby="sy-btn-3">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Jika klien membatalkan di tengah pengerjaan, DP tidak dapat dikembalikan (hangus).
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 04 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-4" id="sy-btn-4">
+              <span class="flex gap-3"><span class="font-mono text-primary">04</span><span>Ruang Lingkup</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-4" role="region" aria-labelledby="sy-btn-4">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Pekerjaan mengikuti scope yang disepakati di awal. Tambahan di luar scope dihitung terpisah.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 05 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-5" id="sy-btn-5">
+              <span class="flex gap-3"><span class="font-mono text-primary">05</span><span>Revisi</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-5" role="region" aria-labelledby="sy-btn-5">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Jumlah revisi sesuai kesepakatan. Revisi besar di luar kesepakatan dapat dikenakan biaya tambahan.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 06 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-6" id="sy-btn-6">
+              <span class="flex gap-3"><span class="font-mono text-primary">06</span><span>Timeline &amp; Keterlambatan Materi</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-6" role="region" aria-labelledby="sy-btn-6">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Estimasi waktu bisa mundur jika klien terlambat memberi materi atau feedback.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 07 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-7" id="sy-btn-7">
+              <span class="flex gap-3"><span class="font-mono text-primary">07</span><span>Hak Cipta &amp; Penggunaan Karya</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-7" role="region" aria-labelledby="sy-btn-7">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Hak penggunaan beralih ke klien setelah pelunasan. Nerava boleh menampilkan hasil karya di portofolio kecuali diminta sebaliknya.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 08 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-8" id="sy-btn-8">
+              <span class="flex gap-3"><span class="font-mono text-primary">08</span><span>Kerahasiaan Data</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-8" role="region" aria-labelledby="sy-btn-8">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Data dan materi klien dijaga dan tidak dibagikan ke pihak lain.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 09 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-9" id="sy-btn-9">
+              <span class="flex gap-3"><span class="font-mono text-primary">09</span><span>Hosting &amp; Domain</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-9" role="region" aria-labelledby="sy-btn-9">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Biaya domain dan hosting ditanggung klien, kecuali disepakati lain.
+              </p></div>
+            </div>
+          </div>
+
+          <!-- 10 -->
+          <div class="acc-item fade-up">
+            <button class="acc-btn" aria-expanded="false" aria-controls="sy-10" id="sy-btn-10">
+              <span class="flex gap-3"><span class="font-mono text-primary">10</span><span>Kompatibilitas</span></span>
+              <i data-lucide="plus" class="acc-icon h-5 w-5" aria-hidden="true"></i>
+            </button>
+            <div class="acc-panel" id="sy-10" role="region" aria-labelledby="sy-btn-10">
+              <div><p class="px-5 pb-5 pl-14 text-sm leading-relaxed text-muted">
+                Website diuji di browser modern (Chrome, Safari, Firefox, Edge) dan ukuran layar HP maupun laptop.
+              </p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 10. KONTAK                                                    -->
+    <!-- ============================================================= -->
+    <section id="kontak" class="bg-mint py-24">
+      <div class="mx-auto max-w-container px-5 lg:px-6">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-14">
+
+          <!-- Kolom kiri -->
+          <div class="fade-up">
+            <p class="label-mono">07 — Kontak</p>
+            <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+              Ceritakan idemu, kami <span class="marker">bantu wujudkan</span>
+            </h2>
+            <p class="mt-4 text-muted leading-relaxed">
+              Konsultasi gratis dan tanpa kewajiban lanjut. Respon tercepat lewat WhatsApp.
+            </p>
+
+            <div class="mt-8 space-y-4">
+              <!-- WhatsApp -->
+              <div class="card flex flex-wrap items-center justify-between gap-4 p-5">
+                <div class="flex items-center gap-4">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+                    <i data-lucide="message-circle" class="h-5 w-5 text-primary"></i>
+                  </span>
+                  <div>
+                    <p class="label-mono text-[10px] text-muted">WhatsApp</p>
+                    <p class="font-semibold text-ink">+62 831-9348-1352</p>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <button class="copy-btn rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold text-ink hover:bg-mint transition"
+                          data-copy="+62 831-9348-1352" aria-label="Salin nomor WhatsApp">
+                    <span class="copy-label">Salin</span>
+                  </button>
+                  <a href="https://wa.me/6283193481352" target="_blank" rel="noopener"
+                     class="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white hover:bg-primarydark transition"
+                     aria-label="Buka WhatsApp di tab baru">
+                    Buka
+                  </a>
+                </div>
+              </div>
+
+              <!-- Instagram -->
+              <div class="card flex flex-wrap items-center justify-between gap-4 p-5">
+                <div class="flex items-center gap-4">
+                  <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent" aria-hidden="true">
+                    <i data-lucide="instagram" class="h-5 w-5 text-primary"></i>
+                  </span>
+                  <div>
+                    <p class="label-mono text-[10px] text-muted">Instagram</p>
+                    <p class="font-semibold text-ink">@nerava.digital</p>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <button class="copy-btn rounded-full border border-line bg-white px-4 py-2 text-xs font-semibold text-ink hover:bg-mint transition"
+                          data-copy="@nerava.digital" aria-label="Salin username Instagram">
+                    <span class="copy-label">Salin</span>
+                  </button>
+                  <a href="https://instagram.com/nerava.digital" target="_blank" rel="noopener"
+                     class="rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white hover:bg-primarydark transition"
+                     aria-label="Buka Instagram di tab baru">
+                    Buka
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kolom kanan: form -->
+          <div class="fade-up">
+            <form id="waForm" class="card p-6 sm:p-8" novalidate>
+              <h3 class="text-lg font-bold text-ink sm:text-xl">Susun pesan, langsung ke WhatsApp</h3>
+
+              <!-- Nama -->
+              <div class="mt-6">
+                <label for="fNama" class="block text-sm font-semibold text-ink">Nama</label>
+                <input id="fNama" name="nama" type="text" required placeholder="Nama kamu"
+                       class="mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70 focus:border-primary" />
+                <p class="err hidden mt-1.5 text-xs font-medium text-red-600">Nama wajib diisi.</p>
+              </div>
+
+              <!-- Kebutuhan proyek -->
+              <div class="mt-5">
+                <div class="flex items-center justify-between">
+                  <label for="fKebutuhan" class="block text-sm font-semibold text-ink">Kebutuhan proyek</label>
+                  <span id="charCount" class="font-mono text-[11px] text-muted">0/500</span>
+                </div>
+                <textarea id="fKebutuhan" name="kebutuhan" rows="4" maxlength="500" required
+                          placeholder="Ceritakan singkat kebutuhanmu..."
+                          class="mt-2 w-full resize-none rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink placeholder:text-muted/70 focus:border-primary"></textarea>
+                <p class="err hidden mt-1.5 text-xs font-medium text-red-600">Kebutuhan proyek wajib diisi.</p>
+              </div>
+
+              <!-- Jenis layanan -->
+              <div class="mt-5">
+                <label for="fLayanan" class="block text-sm font-semibold text-ink">Jenis layanan</label>
+                <select id="fLayanan" name="layanan"
+                        class="mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink focus:border-primary">
+                  <option value="UI/UX Design">UI/UX Design</option>
+                  <option value="Website">Website</option>
+                  <option value="Keduanya">Keduanya</option>
+                </select>
+              </div>
+
+              <!-- Budget -->
+              <div class="mt-5">
+                <label for="fBudget" class="block text-sm font-semibold text-ink">Perkiraan budget</label>
+                <select id="fBudget" name="budget"
+                        class="mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink focus:border-primary">
+                  <option value="Di bawah Rp 1 juta">Di bawah Rp 1 juta</option>
+                  <option value="Rp 1 – 3 juta">Rp 1 – 3 juta</option>
+                  <option value="Rp 3 – 5 juta">Rp 3 – 5 juta</option>
+                  <option value="Rp 5 – 10 juta">Rp 5 – 10 juta</option>
+                  <option value="Di atas Rp 10 juta">Di atas Rp 10 juta</option>
+                  <option value="Belum tahu / perlu saran">Belum tahu / perlu saran</option>
+                </select>
+              </div>
+
+              <!-- Checkbox -->
+              <label class="mt-6 flex items-start gap-3 text-sm text-muted cursor-pointer">
+                <input id="fAgree" type="checkbox" required
+                       class="mt-0.5 h-4 w-4 rounded border-line accent-[#1F5C3A]" />
+                <span>Saya sudah membaca <a href="#syarat" class="font-semibold text-primary underline underline-offset-2">Syarat &amp; Ketentuan</a></span>
+              </label>
+              <p id="errAgree" class="err hidden mt-1.5 text-xs font-medium text-red-600">Centang Syarat &amp; Ketentuan dulu.</p>
+
+              <!-- Tombol -->
+              <button type="submit"
+                      class="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white hover:bg-primarydark transition">
+                <i data-lucide="send" class="h-4 w-4" aria-hidden="true"></i>
+                Kirim via WhatsApp
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 11. CTA PENUTUP                                               -->
+    <!-- ============================================================= -->
+    <section class="relative overflow-hidden bg-primary py-24">
+      <!-- Lingkaran dekoratif -->
+      <span class="deco-ring" style="width:420px;height:420px;top:-160px;left:-140px;" aria-hidden="true"></span>
+      <span class="deco-ring" style="width:320px;height:320px;bottom:-140px;right:-100px;" aria-hidden="true"></span>
+      <span class="deco-ring" style="width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);" aria-hidden="true"></span>
+
+      <div class="relative mx-auto max-w-container px-5 text-center lg:px-6">
+        <div class="fade-up mx-auto max-w-2xl">
+          <h2 class="text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.75rem]">
+            Yuk order sekarang, <span class="text-accent">gratis</span> konsultasi dulu
+          </h2>
+          <p class="mt-5 text-white/85 leading-relaxed">
+            Ceritakan idemu, kami bantu susun rencananya, tanpa biaya.
+          </p>
+          <a href="https://wa.me/6283193481352?text=Halo%20Nerava%2C%20saya%20ingin%20konsultasi%20gratis." target="_blank" rel="noopener"
+             class="mt-9 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-bold text-primary hover:bg-white hover:-translate-y-0.5 transition">
+            <i data-lucide="message-circle" class="h-5 w-5" aria-hidden="true"></i>
+            Chat via WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- 12. FOOTER                                                    -->
+  <!-- ============================================================= -->
+  <footer class="bg-deep pt-16 pb-8 text-white/75">
+    <div class="mx-auto max-w-container px-5 lg:px-6">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <a href="#hero" class="flex items-center gap-2 text-xl font-extrabold tracking-tight text-white">
+            Nerava<span class="h-2 w-2 rounded-full bg-accent inline-block" aria-hidden="true"></span>
+          </a>
+          <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">
+            Jasa desain UI/UX dan pembuatan website untuk UMKM, personal brand, dan bisnis kecil.
+          </p>
+        </div>
+
+        <!-- Jelajahi -->
+        <div>
+          <h3 class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-accent">Jelajahi</h3>
+          <ul class="mt-5 space-y-3 text-sm">
+            <li><a href="#layanan" class="hover:text-white transition">Layanan</a></li>
+            <li><a href="#portofolio" class="hover:text-white transition">Portofolio</a></li>
+            <li><a href="#proses" class="hover:text-white transition">Proses</a></li>
+            <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+            <li><a href="#syarat" class="hover:text-white transition">Syarat &amp; Ketentuan</a></li>
+            <li><a href="#kontak" class="hover:text-white transition">Kontak</a></li>
+          </ul>
+        </div>
+
+        <!-- Kontak -->
+        <div>
+          <h3 class="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-accent">Kontak</h3>
+          <ul class="mt-5 space-y-3 text-sm">
+            <li>
+              <a href="https://wa.me/6283193481352" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-white transition">
+                <i data-lucide="message-circle" class="h-4 w-4" aria-hidden="true"></i>
+                WhatsApp
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com/nerava.digital" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-white transition">
+                <i data-lucide="instagram" class="h-4 w-4" aria-hidden="true"></i>
+                Instagram @nerava.digital
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 border-t border-white/12 pt-6 text-sm text-white/55">
+        © 2026 Nerava. Semua hak dilindungi.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================= -->
+  <!-- JAVASCRIPT VANILLA                                            -->
+  <!-- ============================================================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      /* ---- Lucide icons ---- */
+      if (window.lucide) lucide.createIcons();
+
+      /* ---- Navbar: blur + shadow saat scroll ---- */
+      const navbar = document.getElementById('navbar');
+      const onScroll = () => {
+        if (window.scrollY > 10) {
+          navbar.classList.add('bg-white/85', 'backdrop-blur-md', 'border-line', 'shadow-[0_4px_20px_rgba(16,40,27,.06)]');
+        } else {
+          navbar.classList.remove('bg-white/85', 'backdrop-blur-md', 'border-line', 'shadow-[0_4px_20px_rgba(16,40,27,.06)]');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      /* ---- Hamburger menu mobile ---- */
+      const navToggle = document.getElementById('navToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const toggleMenu = (force) => {
+        const open = force !== undefined ? force : mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', !open);
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+        navToggle.innerHTML = open
+          ? '<i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>'
+          : '<i data-lucide="menu" class="h-5 w-5" aria-hidden="true"></i>';
+        if (window.lucide) lucide.createIcons();
+      };
+      navToggle.addEventListener('click', () => toggleMenu());
+      mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+      /* ---- Animasi fade-up saat masuk layar ---- */
+      const faders = document.querySelectorAll('.fade-up');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        faders.forEach(el => io.observe(el));
+      } else {
+        faders.forEach(el => el.classList.add('in'));
+      }
+
+      /* ---- Filter portofolio ---- */
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const items = document.querySelectorAll('.portfolio-item');
+      const emptyMsg = document.getElementById('portfolioEmpty');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+
+          filterBtns.forEach(b => {
+            const active = b === btn;
+            b.classList.toggle('bg-primary', active);
+            b.classList.toggle('text-white', active);
+            b.classList.toggle('bg-transparent', !active);
+            b.classList.toggle('text-primary', !active);
+            b.setAttribute('aria-selected', String(active));
+          });
+
+          let visible = 0;
+          items.forEach(item => {
+            const show = filter === 'all' || item.dataset.category === filter;
+            item.classList.toggle('hidden', !show);
+            if (show) visible++;
+          });
+          emptyMsg.classList.toggle('hidden', visible > 0);
+        });
+      });
+
+      /* ---- Accordion (FAQ eksklusif, S&K bebas) ---- */
+      const setupAccordion = (containerId, exclusive) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const items = container.querySelectorAll('.acc-item');
+
+        items.forEach(item => {
+          const btn = item.querySelector('.acc-btn');
+          btn.addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+
+            if (exclusive && !isOpen) {
+              items.forEach(other => {
+                other.classList.remove('open');
+                other.querySelector('.acc-btn').setAttribute('aria-expanded', 'false');
+              });
+            }
+
+            item.classList.toggle('open', !isOpen);
+            btn.setAttribute('aria-expanded', String(!isOpen));
+          });
+        });
+      };
+      setupAccordion('faqList', true);
+      setupAccordion('termsList', false);
+
+      /* ---- Tombol salin kontak ---- */
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const text = btn.dataset.copy;
+          const label = btn.querySelector('.copy-label');
+          const original = label.textContent;
+
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (err) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+
+          label.textContent = 'Tersalin!';
+          btn.classList.add('bg-accent', 'border-accent');
+          setTimeout(() => {
+            label.textContent = original;
+            btn.classList.remove('bg-accent', 'border-accent');
+          }, 1800);
+        });
+      });
+
+      /* ---- Penghitung karakter textarea ---- */
+      const ta = document.getElementById('fKebutuhan');
+      const counter = document.getElementById('charCount');
+      ta.addEventListener('input', () => {
+        counter.textContent = ta.value.length + '/500';
+      });
+
+      /* ---- Form → WhatsApp ---- */
+      const form = document.getElementById('waForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nama = document.getElementById('fNama');
+        const kebutuhan = document.getElementById('fKebutuhan');
+        const layanan = document.getElementById('fLayanan');
+        const budget = document.getElementById('fBudget');
+        const agree = document.getElementById('fAgree');
+
+        const errNama = nama.parentElement.querySelector('.err');
+        const errKebutuhan = kebutuhan.parentElement.querySelector('.err');
+        const errAgree = document.getElementById('errAgree');
+
+        let valid = true;
+
+        errNama.classList.toggle('hidden', !!nama.value.trim());
+        if (!nama.value.trim()) valid = false;
+
+        errKebutuhan.classList.toggle('hidden', !!kebutuhan.value.trim());
+        if (!kebutuhan.value.trim()) valid = false;
+
+        errAgree.classList.toggle('hidden', agree.checked);
+        if (!agree.checked) valid = false;
+
+        if (!valid) {
+          const firstErr = form.querySelector('.err:not(.hidden)');
+          if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        const message =
+          'Halo Nerava! Saya ingin konsultasi.%0A%0A' +
+          'Nama: ' + encodeURIComponent(nama.value.trim()) + '%0A' +
+          'Kebutuhan proyek: ' + encodeURIComponent(kebutuhan.value.trim()) + '%0A' +
+          'Jenis layanan: ' + encodeURIComponent(layanan.value) + '%0A' +
+          'Perkiraan budget: ' + encodeURIComponent(budget.value) + '%0A%0A' +
+          'Saya sudah membaca Syarat & Ketentuan.';
+
+        window.open('https://wa.me/6283193481352?text=' + message, '_blank', 'noopener');
+      });
+
+    });
+  </script>
+</body>
+</html>

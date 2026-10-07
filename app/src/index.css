@@ -1,0 +1,352 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+  }
+
+  body {
+    background-color: #f2faf4;
+    color: #10281b;
+    font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Mode gelap global: cukup class `.dark` di <html> (lihat src/theme) */
+  html.dark body {
+    background-color: #0a1811;
+    color: #e9f4ee;
+  }
+
+  ::selection {
+    background: #bfe8c9;
+    color: #10281b;
+  }
+
+  :focus-visible {
+    outline: 2px solid #1f5c3a;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  html.dark :focus-visible {
+    outline-color: #bfe8c9;
+  }
+
+  /* Scrollbar lembut, senada palet mint */
+  html {
+    scrollbar-color: #b9d9c4 #eaf5ec;
+    scrollbar-width: thin;
+  }
+  html.dark {
+    scrollbar-color: #2e7d4f #0a1811;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #eaf5ec;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #b9d9c4;
+    border: 2px solid #eaf5ec;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9cc9ac;
+  }
+  html.dark ::-webkit-scrollbar-track {
+    background: #0a1811;
+  }
+  html.dark ::-webkit-scrollbar-thumb {
+    background: #2e7d4f;
+    border-color: #0a1811;
+  }
+  html.dark ::-webkit-scrollbar-thumb:hover {
+    background: #3f9a66;
+  }
+
+  /* Butiran halus di seluruh halaman — bikin permukaan terasa "cetak", bukan datar */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  /* Kontainer utama: max 1100px, rata tengah, padding 24px */
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6;
+  }
+
+  /* Label mono kecil di atas judul section */
+  .label-mono {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.2em] text-forest-600 dark:text-mint-200;
+  }
+
+  /* Kartu putih: border tipis, radius 1.25rem, shadow lembut, naik saat hover.
+     Pakai properti `translate` (bukan transform) supaya tidak bentrok dengan
+     animasi masuk `.reveal` yang memakai transform. */
+  .card {
+    @apply rounded-[1.25rem] border border-line bg-white shadow-card transition duration-300 dark:border-white/10 dark:bg-[#16301F];
+  }
+  .card.card:hover {
+    translate: 0 -0.25rem;
+    @apply shadow-card-hover;
+  }
+
+  /* Tombol pill tinggi 44-48px, padding horizontal 1.5rem */
+  .btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-full px-6 text-[0.9375rem] font-semibold md:h-12;
+    transition: transform 200ms ease, background-color 200ms ease,
+      border-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+    box-shadow: 0 1px 2px rgba(16, 40, 27, 0.05);
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.985);
+  }
+  .btn-primary {
+    @apply bg-forest-700 text-white hover:bg-[#17492E];
+    box-shadow: 0 10px 22px -12px rgba(31, 92, 58, 0.65);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 14px 26px -12px rgba(31, 92, 58, 0.75);
+  }
+  .btn-secondary {
+    @apply border-[1.5px] border-forest-700 bg-transparent text-forest-700 hover:bg-mint-100 dark:border-mint-200 dark:text-mint-200 dark:hover:bg-white/10;
+  }
+  .btn-secondary:hover {
+    box-shadow: 0 10px 22px -14px rgba(31, 92, 58, 0.5);
+  }
+  .btn-light {
+    @apply bg-mint-200 text-forest-700 hover:bg-white;
+    box-shadow: 0 10px 22px -14px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Menu navbar: garis bawah meluncur dari kiri (hover) & menu aktif */
+  .nav-link {
+    position: relative;
+    display: inline-block;
+    padding-block: 0.25rem;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: #1f5c3a;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link-active::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  html.dark .nav-link::after {
+    background: #bfe8c9;
+  }
+
+  /* Highlight marker di frasa judul */
+  .marker {
+    background-image: linear-gradient(#bfe8c9, #bfe8c9);
+    background-repeat: no-repeat;
+    background-position: 0 86%;
+    background-size: 100% 0.44em;
+    padding: 0 0.06em;
+    border-radius: 0.06em;
+  }
+  /* Di mode gelap: highlight transparan supaya teks putih tetap terbaca */
+  html.dark .marker {
+    background-image: linear-gradient(rgba(191, 232, 201, 0.3), rgba(191, 232, 201, 0.3));
+  }
+  /* Garis marker "digambar" saat section masuk viewport */
+  .in-view .marker {
+    animation: markerIn 750ms cubic-bezier(0.22, 1, 0.36, 1) 250ms both;
+  }
+
+  /* Gradasi forest -> mint untuk variasi highlight */
+  .gradient-text {
+    background: linear-gradient(90deg, #2e7d4f, #bfe8c9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Lingkaran dekoratif outline tipis */
+  .deco-circle {
+    position: absolute;
+    border-radius: 9999px;
+    border: 1px solid #d3e8d9;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  html.dark .deco-circle {
+    border-color: rgba(191, 232, 201, 0.16);
+  }
+
+  /* ===== Pola latar: titik, kisi, arsir — dipakai sebagai overlay ===== */
+  .pattern-dots {
+    background-image: radial-gradient(rgba(31, 92, 58, 0.17) 1px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+  html.dark .pattern-dots {
+    background-image: radial-gradient(rgba(191, 232, 201, 0.12) 1px, transparent 1.5px);
+  }
+  .pattern-dots-light {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+  .pattern-grid {
+    background-image:
+      linear-gradient(rgba(31, 92, 58, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 92, 58, 0.055) 1px, transparent 1px);
+    background-size: 34px 34px;
+  }
+  html.dark .pattern-grid {
+    background-image:
+      linear-gradient(rgba(191, 232, 201, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(191, 232, 201, 0.07) 1px, transparent 1px);
+  }
+
+  /* Pola yang memudar supaya batasnya nggak keras */
+  .pattern-fade {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), transparent 78%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), transparent 78%);
+  }
+  .pattern-fade-soft {
+    -webkit-mask-image: radial-gradient(85% 75% at 50% 45%, #000 0%, transparent 82%);
+    mask-image: radial-gradient(85% 75% at 50% 45%, #000 0%, transparent 82%);
+  }
+
+  /* Noda warna lembut buat kedalaman (blur besar) */
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    pointer-events: none;
+  }
+
+  /* Animasi fade-up saat masuk viewport — easing lembut biar terasa "bernafas".
+     Properti hover (translate/shadow/border) ikut tercantum karena aturan ini
+     menimpa `transition` bawaan .card pada elemen yang sama. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 700ms cubic-bezier(0.22, 1, 0.36, 1), translate 300ms ease,
+      box-shadow 300ms ease, border-color 300ms ease;
+  }
+  .in-view .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Gerak parallax halus untuk visual hero (diatur lewat --parallax) */
+  .parallax {
+    transform: translate3d(0, var(--parallax, 0px), 0);
+    transition: transform 140ms linear;
+    will-change: transform;
+  }
+}
+
+@keyframes markerIn {
+  from {
+    background-size: 0 0.44em;
+  }
+  to {
+    background-size: 100% 0.44em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .parallax {
+    transform: none !important;
+    transition: none !important;
+  }
+  .card.card:hover {
+    translate: none;
+    transform: none;
+  }
+  .in-view .marker {
+    animation: none !important;
+  }
+  .nav-link::after {
+    transition: none !important;
+  }
+  .animate-float,
+  .animate-float-up,
+  .animate-float-down,
+  .animate-blink,
+  .animate-bounce,
+  .animate-popIn,
+  .animate-sheetUp {
+    animation: none !important;
+  }
+}
+
+/* =====================================================================
+   Penyempurnaan mode gelap (global) — sengaja di luar @layer supaya
+   menimpa bayangan hijau bawaan yang tidak terlihat di latar gelap.
+   Mode terang tidak terpengaruh.
+   ====================================================================== */
+html.dark .shadow-card {
+  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.45);
+}
+html.dark .shadow-card-hover {
+  box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(191, 232, 201, 0.1);
+}
+html.dark .shadow-mockup {
+  box-shadow: 0 1.5rem 3.75rem rgba(0, 0, 0, 0.5);
+}
+html.dark .card {
+  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.45);
+}
+html.dark .card.card:hover {
+  border-color: rgba(191, 232, 201, 0.28);
+  box-shadow: 0 1.125rem 2.75rem rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(191, 232, 201, 0.12);
+}
+html.dark .btn-primary {
+  background-color: #bfe8c9;
+  color: #0f3321;
+  box-shadow: 0 14px 32px -14px rgba(191, 232, 201, 0.45), 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+html.dark .btn-primary:hover {
+  background-color: #d6f4de;
+  box-shadow: 0 18px 36px -14px rgba(191, 232, 201, 0.55), 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+html.dark .btn-secondary:hover {
+  box-shadow: 0 10px 22px -14px rgba(0, 0, 0, 0.5);
+}
+html.dark body::after {
+  mix-blend-mode: soft-light;
+  opacity: 0.07;
+}

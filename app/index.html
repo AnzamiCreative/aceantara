@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ACEANTARA adalah studio digital yang membantu UMKM, personal brand, mahasiswa, dan bisnis kecil mewujudkan website, game Unity 2D & AR, dan desain UI/UX."
+    />
+    <meta name="theme-color" content="#1F5C3A" />
+    <!-- Terapkan tema tersimpan sebelum React dimuat supaya tidak ada kedip terang -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('ace-theme');
+          if (t !== 'light' && t !== 'dark') {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+          }
+          var root = document.documentElement;
+          root.classList.toggle('dark', t === 'dark');
+          root.style.colorScheme = t;
+          if (t === 'dark') {
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', '#0A1811');
+          }
+        } catch (e) {
+          /* localStorage tidak tersedia — abaikan */
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>ACEANTARA — Studio Digital: Website, Game Unity &amp; UI/UX</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
