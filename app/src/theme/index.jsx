@@ -3,7 +3,7 @@ import { ThemeContext } from './context.js';
 
 const STORAGE_KEY = 'ace-theme';
 
-/** Tema awal: pilihan tersimpan → light (default, tidak ikut sistem). */
+/** Tema awal: pilihan tersimpan → ikut sistem device → light. */
 function detectTheme() {
   if (typeof window === 'undefined') return 'light';
   try {
@@ -12,7 +12,9 @@ function detectTheme() {
   } catch {
     /* localStorage tidak tersedia — abaikan */
   }
-  return 'light';
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
 }
 
 /**
