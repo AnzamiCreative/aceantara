@@ -1,4 +1,6 @@
 /** Kamus bahasa Indonesia — semua teks tampilan ada di sini. */
+import { WA_NUMBER } from '../data/contacts.js';
+
 export default {
   meta: {
     title: 'ACEANTARA — Studio Digital: Website, Game Unity & UI/UX',
@@ -237,9 +239,16 @@ export default {
         label: 'TikTok',
         url: 'https://www.tiktok.com/@aceantara_software',
       },
-      // GANTI DENGAN URL ASLI (null = ikon tampil sebagai placeholder)
-      { id: 'github', label: 'GitHub', url: null },
-      { id: 'linkedin', label: 'LinkedIn', url: null },
+      {
+        id: 'email',
+        label: 'Email',
+        url: 'mailto:aceantara.software@gmail.com',
+      },
+      {
+        id: 'whatsapp',
+        label: 'WhatsApp',
+        url: `https://wa.me/${WA_NUMBER}`,
+      },
     ],
     socialPlaceholder: 'URL belum diisi',
     copyright: '© 2026 Aceantara. All rights reserved.',

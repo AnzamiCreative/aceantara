@@ -1,15 +1,16 @@
-import { Github, Instagram, Linkedin } from 'lucide-react';
+import { Instagram, Mail } from 'lucide-react';
 import Logo from './Logo.jsx';
 import TikTokIcon from './TikTokIcon.jsx';
+import WhatsAppIcon from './WhatsAppIcon.jsx';
 import { useLang } from '../i18n/context.js';
 import { waLink } from '../data/contacts.js';
 
-/** Ikon sosial (URL placeholder — isi di dict `footer.socials[].url`). */
+/** Ikon kolom "Ikuti Kami": IG, TikTok, Email, WhatsApp. */
 const socialIcons = {
   instagram: Instagram,
   tiktok: TikTokIcon,
-  github: Github,
-  linkedin: Linkedin,
+  email: Mail,
+  whatsapp: WhatsAppIcon,
 };
 
 /** Footer 4 kolom: brand, navigasi, kontak, ikuti kami + baris copyright. */
