@@ -15,9 +15,7 @@
         try {
           var t = localStorage.getItem('ace-theme');
           if (t !== 'light' && t !== 'dark') {
-            t = window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light';
+            t = 'light';
           }
           var root = document.documentElement;
           root.classList.toggle('dark', t === 'dark');
