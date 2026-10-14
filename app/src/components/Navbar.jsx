@@ -13,7 +13,7 @@ function LangToggle({ className = '' }) {
     <div
       role="group"
       aria-label={t.nav.langLabel}
-      className={`flex items-center rounded-full border border-line bg-white p-1 dark:border-white/10 dark:bg-white/5 ${className}`}
+      className={`flex items-center rounded-full border border-line bg-white p-1 dark:border-white/15 dark:bg-white/[0.07] ${className}`}
     >
       {['id', 'en'].map((code) => (
         <button
@@ -21,10 +21,10 @@ function LangToggle({ className = '' }) {
           type="button"
           onClick={() => setLang(code)}
           aria-pressed={lang === code}
-          className={`rounded-full px-2.5 py-1 text-[0.625rem] font-bold uppercase tracking-[0.08em] transition ${
+          className={`rounded-full px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.08em] transition ${
             lang === code
               ? 'bg-forest-700 text-white dark:bg-mint-200 dark:text-forest-900'
-              : 'text-muted hover:text-forest-700 dark:text-white/70 dark:hover:text-mint-200'
+              : 'text-muted hover:text-forest-700 dark:text-white/80 dark:hover:text-mint-200'
           }`}
         >
           {code}
@@ -46,7 +46,7 @@ function ThemeToggle({ className = '' }) {
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label={t.nav.themeLabel}
       title={isDark ? t.nav.themeLight : t.nav.themeDark}
-      className={`flex h-9 w-9 items-center justify-center rounded-full border border-line bg-white text-forest-700 transition hover:border-forest-600 dark:border-white/10 dark:bg-white/5 dark:text-mint-200 dark:hover:border-mint-200 ${className}`}
+      className={`flex h-9 w-9 items-center justify-center rounded-full border border-line bg-white text-forest-700 transition hover:border-forest-600 dark:border-white/15 dark:bg-white/[0.07] dark:text-mint-200 dark:hover:border-mint-200 ${className}`}
     >
       {isDark ? (
         <Sun className="h-4 w-4" aria-hidden="true" />
@@ -163,7 +163,7 @@ export default function Navbar() {
       {open ? (
         <div
           id="menu-mobile"
-          className="mx-auto mt-2 max-h-[calc(100dvh-6rem)] max-w-[1200px] overflow-y-auto overscroll-contain rounded-[1.625rem] border border-white/70 bg-mint-50/85 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-lg backdrop-saturate-150 dark:border-white/10 dark:bg-[#132019]/92 dark:shadow-[0_0.625rem_2.5rem_rgba(0,0,0,0.5)] lg:hidden"
+          className="mx-auto mt-3 max-h-[calc(100dvh-6rem)] max-w-[1200px] overflow-y-auto overscroll-contain rounded-[1.5rem] border border-white/70 bg-mint-50/95 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-lg backdrop-saturate-150 dark:border-white/15 dark:bg-[#16301F]/95 dark:shadow-[0_1.5rem_3rem_rgba(0,0,0,0.55)] lg:hidden"
         >
           {/* Link 2 kolom supaya sheet tidak memanjang */}
           <div className="grid grid-cols-2 gap-1">
@@ -174,10 +174,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition dark:hover:bg-white/10 ${
+                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition ${
                     isActive
-                      ? 'bg-mint-200/80 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200'
-                      : 'text-ink hover:bg-mint-200/50 dark:text-white'
+                      ? 'bg-mint-200 text-forest-700 dark:bg-mint-200 dark:text-forest-900'
+                      : 'bg-white/70 text-ink hover:bg-mint-100 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.13]'
                   }`}
                 >
                   {link.label}
@@ -187,7 +187,7 @@ export default function Navbar() {
           </div>
 
           {/* Kontrol: bahasa + tema */}
-          <div className="mt-2 flex items-center gap-2 border-t border-line pt-2 dark:border-white/10">
+          <div className="mt-2 flex items-center gap-2 border-t border-line pt-2 dark:border-white/15">
             <LangToggle />
             <ThemeToggle />
           </div>
