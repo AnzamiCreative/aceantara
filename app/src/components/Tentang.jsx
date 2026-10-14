@@ -1,22 +1,8 @@
 import { useRef, useState } from 'react';
-import { Code2, Zap } from 'lucide-react';
 import Logo from './Logo.jsx';
 import { useInView } from '../hooks/useInView.js';
 import { useLang } from '../i18n/context.js';
 import { renderMarker } from '../lib/marker.jsx';
-
-/** Chip pill melayang: ikon + teks, float pelan (arah bergantian). */
-function FloatChip({ position, animation, delay, icon: Icon, children }) {
-  return (
-    <span
-      className={`absolute z-10 flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2.5 text-sm font-bold text-ink shadow-mockup dark:border-white/10 dark:bg-[#16301F] dark:text-white ${position} ${animation}`}
-      style={delay ? { animationDelay: delay } : undefined}
-    >
-      <Icon className="h-4 w-4 text-forest-600 dark:text-mint-200" aria-hidden="true" />
-      {children}
-    </span>
-  );
-}
 
 /** Section Tentang Kami: visual card di kiri, teks + tab Cerita/Visi/Misi di kanan. */
 export default function Tentang() {
@@ -91,23 +77,6 @@ export default function Tentang() {
                 </div>
               </div>
             </div>
-
-            {/* Dua chip melayang (di luar overflow kartu supaya tidak terpotong) */}
-            <FloatChip
-              position="-left-3 top-7 sm:-left-5"
-              animation="animate-float-up"
-              icon={Code2}
-            >
-              {a.chips[0]}
-            </FloatChip>
-            <FloatChip
-              position="-bottom-5 right-3 sm:-right-5"
-              animation="animate-float-down"
-              delay="-1.6s"
-              icon={Zap}
-            >
-              {a.chips[1]}
-            </FloatChip>
           </div>
         </div>
 

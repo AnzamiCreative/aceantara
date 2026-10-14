@@ -1,36 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { Chrome, Figma, Gamepad2 } from 'lucide-react';
 import WaButton from './WaButton.jsx';
 import { useInView } from '../hooks/useInView.js';
 import { useLang } from '../i18n/context.js';
 import { renderMarker } from '../lib/marker.jsx';
-
-/* Kartu mengambang: posisi & animasi dipisah supaya transform tidak bentrok */
-function FloatingCard({ position, animation, delay, icon: Icon, title, subtitle }) {
-  return (
-    <div className={`absolute z-10 ${position}`}>
-        <div
-          className={`flex ${animation} items-center gap-2.5 rounded-2xl border border-line bg-white px-3 py-2.5 shadow-[0_1.5rem_3.75rem_rgba(31,92,58,0.14)] dark:border-white/[0.14] dark:bg-[#14291D]/85 dark:shadow-[0_18px_36px_-14px_rgba(0,0,0,0.65)] dark:backdrop-blur-md sm:px-3.5 sm:py-3`}
-          style={delay ? { animationDelay: delay } : undefined}
-        >
-        <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-mint-100 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200 dark:ring-1 dark:ring-inset dark:ring-mint-200/20"
-          aria-hidden="true"
-        >
-          <Icon className="h-[1.125rem] w-[1.125rem]" />
-        </span>
-        <div className="min-w-0">
-          <p className="whitespace-nowrap text-[0.75rem] font-bold leading-tight text-ink dark:text-white sm:text-[0.8125rem]">
-            {title}
-          </p>
-          <p className="whitespace-nowrap font-mono text-[0.59375rem] uppercase tracking-[0.1em] leading-tight text-muted dark:text-white/60 sm:text-[0.625rem]">
-            {subtitle}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /** Hero dua kolom: teks di kiri, visual browser mockup di kanan. */
 export default function Hero() {
@@ -195,36 +167,6 @@ export default function Hero() {
                 </pre>
               </div>
             </div>
-
-            {/* ---- Floating card: kiri atas (Landing Page) ---- */}
-            <FloatingCard
-              position="-left-3 -top-6 lg:-left-8 lg:-top-8"
-              animation="animate-float-up"
-              delay="-0.4s"
-              icon={Chrome}
-              title={t.hero.cards[0].title}
-              subtitle={t.hero.cards[0].subtitle}
-            />
-
-            {/* ---- Floating card: kanan atas (UI/UX Design) — dari sm agar HP tidak sesak ---- */}
-            <FloatingCard
-              position="hidden sm:block -right-3 -top-6 lg:-right-8 lg:-top-8"
-              animation="animate-float-up"
-              delay="-2.4s"
-              icon={Figma}
-              title={t.hero.cards[2].title}
-              subtitle={t.hero.cards[2].subtitle}
-            />
-
-            {/* ---- Floating card: kanan bawah (Game Unity 2D) — dari sm ---- */}
-            <FloatingCard
-              position="hidden sm:block -bottom-6 -right-3 lg:-bottom-8 lg:-right-8"
-              animation="animate-float-down"
-              delay="-1.4s"
-              icon={Gamepad2}
-              title={t.hero.cards[1].title}
-              subtitle={t.hero.cards[1].subtitle}
-            />
             </div>
           </div>
         </div>
