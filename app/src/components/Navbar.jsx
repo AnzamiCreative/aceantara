@@ -165,8 +165,8 @@ export default function Navbar() {
           id="menu-mobile"
           className="mx-auto mt-3 max-h-[calc(100dvh-6rem)] max-w-[1200px] overflow-y-auto overscroll-contain rounded-[1.5rem] border border-white/70 bg-mint-50/95 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-lg backdrop-saturate-150 dark:border-white/15 dark:bg-[#16301F]/95 dark:shadow-[0_1.5rem_3rem_rgba(0,0,0,0.55)] lg:hidden"
         >
-          {/* Link 2 kolom supaya sheet tidak memanjang */}
-          <div className="grid grid-cols-2 gap-1">
+          {/* Daftar link vertikal (1 kolom) — panjang ke bawah, bisa digesar bila melebihi layar */}
+          <div className="flex flex-col gap-1">
             {navLinks.map((link) => {
               const isActive = active === link.href.slice(1);
               return (
@@ -174,7 +174,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+                  className={`rounded-xl px-3.5 py-3 text-[0.9375rem] font-medium transition ${
                     isActive
                       ? 'bg-mint-200 text-forest-700 dark:bg-mint-200 dark:text-forest-900'
                       : 'bg-white/70 text-ink hover:bg-mint-100 dark:bg-white/[0.07] dark:text-white dark:hover:bg-white/[0.13]'
