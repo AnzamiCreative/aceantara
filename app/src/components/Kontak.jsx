@@ -88,7 +88,7 @@ export default function Kontak() {
     <section
       id="kontak"
       ref={ref}
-      className={`relative overflow-hidden bg-mint-50 py-24 dark:bg-[#0A1811] md:py-28 ${
+      className={`relative overflow-hidden bg-mint-50 section-y dark:bg-[#0A1811] ${
         inView ? 'in-view' : ''
       }`}
     >
@@ -102,7 +102,7 @@ export default function Kontak() {
         aria-hidden="true"
       />
 
-      <div className="container-x relative grid gap-10 lg:grid-cols-2 lg:gap-14">
+      <div className="container-x relative grid gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-14">
         {/* ================= Kolom kiri: info ================= */}
         <div>
           <SectionHeading
@@ -112,13 +112,13 @@ export default function Kontak() {
             subtitle={copy.subtitle}
           />
 
-          <ul className="mt-8 space-y-3">
+          <ul className="mt-7 space-y-2.5 sm:mt-8 sm:space-y-3">
             {infoItems.map((item, index) => {
               const Icon = item.icon;
               const content = (
                 <>
                   <span
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-mint-100 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mint-100 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200 sm:h-11 sm:w-11"
                     aria-hidden="true"
                   >
                     <Icon className="h-5 w-5" />
@@ -135,7 +135,7 @@ export default function Kontak() {
               return (
                 <li
                   key={item.id}
-                  className="reveal card flex items-center gap-3.5 p-4"
+                  className="reveal card flex items-center gap-3 p-3.5 sm:gap-3.5 sm:p-4"
                   style={{ transitionDelay: `${index * 60}ms` }}
                 >
                   {item.href ? (
@@ -144,7 +144,7 @@ export default function Kontak() {
                       target={item.href.startsWith('mailto:') ? undefined : '_blank'}
                       rel="noopener noreferrer"
                       aria-label={copy.ariaCopy.replace('{label}', item.label)}
-                      className="flex min-w-0 items-center gap-3.5 transition hover:opacity-75"
+                      className="flex min-w-0 items-center gap-3 transition hover:opacity-75 sm:gap-3.5"
                     >
                       {content}
                     </a>

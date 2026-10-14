@@ -159,13 +159,14 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* ===== Menu mobile: turun penuh lebar ===== */}
+      {/* ===== Menu mobile: sheet ringkas, maksimal setengah layar ===== */}
       {open ? (
         <div
           id="menu-mobile"
-          className="mx-auto mt-2 max-w-[1200px] rounded-[1.625rem] border border-white/70 bg-mint-50/85 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-lg backdrop-saturate-150 dark:border-white/10 dark:bg-[#132019]/92 dark:shadow-[0_0.625rem_2.5rem_rgba(0,0,0,0.5)] lg:hidden"
+          className="mx-auto mt-2 max-h-[calc(100dvh-6rem)] max-w-[1200px] overflow-y-auto overscroll-contain rounded-[1.625rem] border border-white/70 bg-mint-50/85 p-2 shadow-[0_0.625rem_2.5rem_rgba(31,92,58,0.12)] backdrop-blur-lg backdrop-saturate-150 dark:border-white/10 dark:bg-[#132019]/92 dark:shadow-[0_0.625rem_2.5rem_rgba(0,0,0,0.5)] lg:hidden"
         >
-          <div className="flex flex-col gap-1">
+          {/* Link 2 kolom supaya sheet tidak memanjang */}
+          <div className="grid grid-cols-2 gap-1">
             {navLinks.map((link) => {
               const isActive = active === link.href.slice(1);
               return (
@@ -173,7 +174,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`rounded-xl px-3 py-3 text-[0.9375rem] font-medium transition dark:hover:bg-white/10 ${
+                  className={`rounded-xl px-3 py-2.5 text-sm font-medium transition dark:hover:bg-white/10 ${
                     isActive
                       ? 'bg-mint-200/80 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200'
                       : 'text-ink hover:bg-mint-200/50 dark:text-white'
@@ -183,14 +184,18 @@ export default function Navbar() {
                 </a>
               );
             })}
-            <div className="mt-3 flex items-center gap-2 self-start">
-              <LangToggle />
-              <ThemeToggle />
-            </div>
-            <WaButton text={t.nav.waCta} className="mt-3 w-full">
-              {t.nav.cta}
-            </WaButton>
           </div>
+
+          {/* Kontrol: bahasa + tema */}
+          <div className="mt-2 flex items-center gap-2 border-t border-line pt-2 dark:border-white/10">
+            <LangToggle />
+            <ThemeToggle />
+          </div>
+
+          {/* CTA penuh lebar — target jempol yang jelas */}
+          <WaButton text={t.nav.waCta} className="mt-2 w-full">
+            {t.nav.cta}
+          </WaButton>
         </div>
       ) : null}
     </header>

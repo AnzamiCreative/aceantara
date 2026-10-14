@@ -263,7 +263,7 @@ export default function Portofolio() {
     <section
       id="portofolio"
       ref={ref}
-      className={`relative overflow-hidden bg-mint-50 py-24 dark:bg-[#0A1811] md:py-28 ${
+      className={`relative overflow-hidden bg-mint-50 section-y dark:bg-[#0A1811] ${
         inView ? 'in-view' : ''
       }`}
     >
@@ -292,9 +292,9 @@ export default function Portofolio() {
           </p>
         </div>
 
-        {/* ================= 1. Filter tab ================= */}
+        {/* ================= 1. Filter tab — 1 baris, geser di HP ================= */}
         <div
-          className="reveal mt-9 flex flex-wrap items-center justify-center gap-2"
+          className="reveal no-scrollbar -mx-5 mt-8 flex snap-x items-center gap-2 overflow-x-auto px-5 pb-1 sm:mx-0 sm:mt-9 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
           role="group"
           aria-label={t.tabsLabel}
         >
@@ -306,7 +306,7 @@ export default function Portofolio() {
                 type="button"
                 onClick={() => setFilter(tab.id)}
                 aria-pressed={isActive}
-                className={`h-10 rounded-full border px-5 text-sm font-semibold transition ${
+                className={`h-10 shrink-0 snap-start rounded-full border px-4 text-sm font-semibold transition sm:px-5 ${
                   isActive
                     ? 'border-forest-700 bg-forest-700 text-white shadow-[0_10px_22px_-14px_rgba(31,92,58,0.65)] dark:border-mint-200 dark:bg-mint-200 dark:text-forest-900'
                     : 'border-line bg-white text-muted hover:border-forest-600 hover:text-forest-700 dark:border-white/10 dark:bg-white/5 dark:text-white/70 dark:hover:text-mint-200'
@@ -322,7 +322,7 @@ export default function Portofolio() {
         {featured ? (
           <article
             onClick={() => setDetail(featured)}
-            className="reveal card mt-9 grid cursor-pointer gap-8 p-6 dark:border-white/10 dark:bg-[#16301F] lg:grid-cols-2 lg:items-center lg:p-10"
+            className="reveal card mt-8 grid cursor-pointer gap-6 p-5 dark:border-white/10 dark:bg-[#16301F] sm:mt-9 sm:p-6 lg:grid-cols-2 lg:items-center lg:p-10"
             style={{ transitionDelay: '80ms' }}
           >
             {/* Info */}
@@ -344,8 +344,8 @@ export default function Portofolio() {
                 {featured.copy[lang].short}
               </p>
 
-              <p className="label-mono mt-7 dark:text-mint-200">{t.buildLabel}</p>
-              <ul className="mt-3 space-y-2.5 text-sm text-ink dark:text-white">
+              <p className="label-mono mt-6 dark:text-mint-200 sm:mt-7">{t.buildLabel}</p>
+              <ul className="mt-3 space-y-2 text-sm text-ink dark:text-white sm:space-y-2.5">
                 {featured.copy[lang].highlights.map((point) => (
                   <li key={point} className="flex items-start gap-2.5">
                     <CheckCircle2
@@ -357,7 +357,7 @@ export default function Portofolio() {
                 ))}
               </ul>
 
-              <ul className="mt-6 flex flex-wrap gap-2">
+              <ul className="mt-5 flex flex-wrap gap-2 sm:mt-6">
                 {featured.tech.map((tech) => (
                   <li
                     key={tech}
@@ -369,7 +369,7 @@ export default function Portofolio() {
               </ul>
 
               {/* Tombol aksi: mengarah langsung ke link proyek (buka tab baru) */}
-              <div className="mt-7">
+              <div className="mt-6 sm:mt-7">
                 <CtaLink
                   project={featured}
                   className="btn btn-primary"
@@ -382,8 +382,10 @@ export default function Portofolio() {
               </div>
             </div>
 
-            {/* Preview */}
-            <BrowserMockup />
+            {/* Preview — mockup besar hanya di lg ke atas, HP cukup teks */}
+            <div className="hidden lg:block">
+              <BrowserMockup />
+            </div>
           </article>
         ) : null}
 
@@ -391,7 +393,7 @@ export default function Portofolio() {
         {others.length > 0 ? (
           <div
             key={filter}
-            className={`mt-6 grid animate-popIn gap-6 ${
+            className={`mt-6 grid animate-popIn gap-5 sm:gap-6 ${
               filter === 'all'
                 ? 'sm:grid-cols-2 lg:grid-cols-3'
                 : 'sm:grid-cols-2'
@@ -406,7 +408,7 @@ export default function Portofolio() {
                   style={{ transitionDelay: `${index * 80}ms` }}
                 >
                   {/* Area preview + ikon play */}
-                  <div className="relative h-40 overflow-hidden rounded-[0.875rem]">
+                  <div className="relative h-36 overflow-hidden rounded-[0.875rem] sm:h-40">
                     <Thumb category={project.category} />
                     <span
                       className="pointer-events-none absolute inset-0 flex items-center justify-center"
@@ -421,19 +423,21 @@ export default function Portofolio() {
                     </span>
                   </div>
 
-                  <div className="px-1 pb-1 pt-5">
+                  <div className="px-1 pb-1 pt-4 sm:pt-5">
                     <h3 className="text-base font-extrabold leading-snug tracking-[-0.02em] text-ink dark:text-white">
                       {text.name}
                     </h3>
-                    <p className="label-mono mt-1.5 dark:text-mint-200">
+                    {/* Kategori sudah ada di badge overlay thumbnail — tampilkan di sm ke atas */}
+                    <p className="label-mono mt-1.5 hidden dark:text-mint-200 sm:block">
                       {t.categories[project.category]}
                     </p>
 
-                    <p className="mt-2 text-sm leading-[1.7] text-muted dark:text-white/70">
+                    {/* Ringkasan + tech: sm ke atas; di HP detail ada di modal */}
+                    <p className="mt-2 hidden text-sm leading-[1.7] text-muted sm:block dark:text-white/70">
                       {text.short}
                     </p>
 
-                    <ul className="mt-4 flex flex-wrap gap-2">
+                    <ul className="mt-4 hidden flex-wrap gap-2 sm:flex">
                       {project.tech.map((tech) => (
                         <li
                           key={tech}
@@ -445,7 +449,7 @@ export default function Portofolio() {
                     </ul>
 
                     {/* CTA: di atas overlay, mengarah langsung ke link proyek */}
-                    <span className="relative z-20 mt-4 inline-block">
+                    <span className="relative z-20 mt-3 inline-block sm:mt-4">
                       <CtaLink
                         project={project}
                         className="text-sm font-bold text-forest-700 dark:text-mint-200"

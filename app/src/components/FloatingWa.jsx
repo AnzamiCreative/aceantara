@@ -25,7 +25,7 @@ export default function FloatingWa() {
       rel="noopener noreferrer"
       aria-label={t.nav.waFloat}
       title={t.nav.waFloat}
-      className={`group fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_-10px_rgba(37,211,102,0.65)] transition duration-300 hover:scale-105 active:scale-95 ${
+      className={`group fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_-10px_rgba(37,211,102,0.65)] transition duration-300 hover:scale-105 active:scale-95 sm:right-5 sm:bottom-5 ${
         show
           ? 'translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-4 opacity-0'

@@ -26,11 +26,11 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-line bg-white dark:border-white/10 dark:bg-[#132019]">
-      <div className="container-x py-12 md:py-14">
-        {/* ===== Grid 4 kolom ===== */}
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container-x py-10 sm:py-12 md:py-14">
+        {/* ===== Grid: 2 kolom di HP (brand & kontak penuh), 4 kolom di lg ===== */}
+        <div className="grid grid-cols-2 gap-x-6 gap-8 sm:gap-10 lg:grid-cols-4">
           {/* 1. Brand */}
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <a href="#home" className="flex items-center gap-2.5">
               <Logo />
               <span className="text-[0.9375rem] font-extrabold tracking-[0.18em]">
@@ -59,8 +59,8 @@ export default function Footer() {
             </ul>
           </nav>
 
-          {/* 3. Kontak — pola seragam: label tebal + nilai tipis di tiap baris */}
-          <div>
+          {/* 3. Kontak — penuh 1 baris di HP, supaya email tidak terpotong */}
+          <div className="order-last col-span-2 sm:order-none sm:col-span-1">
             <p className="label-mono">{f.contactHeading}</p>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
@@ -102,10 +102,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 4. Ikuti Kami */}
+          {/* 4. Ikuti Kami — 2×2 di HP supaya muat di kolom setengah lebar */}
           <div>
             <p className="label-mono">{f.socialHeading}</p>
-            <ul className="mt-4 flex gap-3">
+            <ul className="mt-4 grid w-max grid-cols-2 gap-2 sm:flex sm:w-auto sm:gap-3">
               {f.socials.map((social) => {
                 const Icon = socialIcons[social.id];
                 if (!Icon) return null;
@@ -145,7 +145,7 @@ export default function Footer() {
         </div>
 
         {/* ===== Garis tipis + baris copyright ===== */}
-        <div className="mt-10 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted dark:border-white/10 dark:text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-2 border-t border-line pt-6 text-xs text-muted dark:border-white/10 dark:text-white/60 sm:mt-10 sm:flex-row sm:items-center sm:justify-between">
           <p>{f.copyright}</p>
           <p>{f.madeIn}</p>
         </div>

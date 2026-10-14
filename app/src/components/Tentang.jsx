@@ -45,7 +45,7 @@ export default function Tentang() {
     <section
       id="tentang"
       ref={ref}
-      className={`relative overflow-hidden border-t border-line bg-white py-24 dark:border-white/10 dark:bg-[#132019] md:py-28 ${
+      className={`relative overflow-hidden border-t border-line bg-white section-y dark:border-white/10 dark:bg-[#132019] ${
         inView ? 'in-view' : ''
       }`}
     >
@@ -59,19 +59,19 @@ export default function Tentang() {
         aria-hidden="true"
       />
 
-      <div className="container-x relative grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+      <div className="container-x relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         {/* ================= Kolom kiri: visual card ================= */}
         <div className="reveal">
           <div className="relative mx-auto w-full max-w-md lg:max-w-none">
             {/* Kartu besar: gradasi hijau + pola grid tipis */}
-            <div className="relative flex min-h-[19rem] items-center justify-center overflow-hidden rounded-[1.5rem] border border-forest-600/40 bg-gradient-to-br from-mint-100 via-mint-50 to-white p-10 dark:border-mint-200/25 dark:from-[#1B3B27] dark:via-[#142A1E] dark:to-[#0C1B14]">
+            <div className="relative flex min-h-[15rem] items-center justify-center overflow-hidden rounded-[1.5rem] border border-forest-600/40 bg-gradient-to-br from-mint-100 via-mint-50 to-white p-6 dark:border-mint-200/25 dark:from-[#1B3B27] dark:via-[#142A1E] dark:to-[#0C1B14] sm:min-h-[19rem] sm:p-10">
               <span
                 className="pattern-grid pointer-events-none absolute inset-0 opacity-70 dark:opacity-30"
                 aria-hidden="true"
               />
 
               {/* Lingkaran garis putus-putus mengelilingi logo */}
-              <div className="relative flex h-52 w-52 items-center justify-center">
+              <div className="relative flex h-40 w-40 items-center justify-center sm:h-52 sm:w-52">
                 <span
                   className="absolute inset-0 rounded-full border border-dashed border-forest-600/45 dark:border-mint-200/30"
                   aria-hidden="true"
@@ -80,9 +80,9 @@ export default function Tentang() {
                   className="absolute inset-5 rounded-full border border-dashed border-forest-600/25 dark:border-mint-200/15"
                   aria-hidden="true"
                 />
-                <div className="flex items-center gap-2.5">
-                  <Logo className="h-10 w-10" />
-                  <span className="text-lg font-extrabold tracking-[0.18em]">
+                <div className="flex items-center gap-2 sm:gap-2.5">
+                  <Logo className="h-8 w-8 sm:h-10 sm:w-10" />
+                  <span className="text-base font-extrabold tracking-[0.18em] sm:text-lg">
                     <span className="text-ink dark:text-white">ACE</span>
                     <span className="text-forest-600 dark:text-mint-200">
                       ANTARA
@@ -172,7 +172,7 @@ export default function Tentang() {
             role="tabpanel"
             aria-labelledby={`tentang-tab-${active}`}
             tabIndex={0}
-            className="reveal card mt-5 p-6"
+            className="reveal card mt-5 p-5 sm:p-6"
             style={{ transitionDelay: '320ms' }}
           >
             <p

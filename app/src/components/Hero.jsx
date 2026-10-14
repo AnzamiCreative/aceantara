@@ -75,7 +75,7 @@ export default function Hero() {
     <section
       id="hero"
       ref={ref}
-      className={`relative flex min-h-screen flex-col justify-center overflow-hidden pb-20 pt-24 md:pb-24 md:pt-28 ${
+      className={`relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-16 pt-24 sm:pb-20 md:pb-24 md:pt-28 ${
         inView ? 'in-view' : ''
       }`}
     >
@@ -90,16 +90,16 @@ export default function Hero() {
         aria-hidden="true"
       />
       <span
-        className="blob -right-28 top-20 h-[24rem] w-[24rem] bg-mint-200/70 dark:bg-mint-200/20"
+        className="blob -right-28 top-20 hidden h-[24rem] w-[24rem] bg-mint-200/70 sm:block dark:bg-mint-200/20"
         aria-hidden="true"
       />
       <span
-        className="blob -left-36 bottom-0 h-[20rem] w-[20rem] bg-mint-100 dark:bg-mint-200/15"
+        className="blob -left-36 bottom-0 hidden h-[20rem] w-[20rem] bg-mint-100 sm:block dark:bg-mint-200/15"
         aria-hidden="true"
       />
 
       <div className="container-x relative">
-        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           {/* ================= Kolom kiri ================= */}
           <div>
             {/* Badge */}
@@ -183,7 +183,7 @@ export default function Hero() {
               </div>
 
               {/* Isi window: code snippet (lega, tinggi ±300-340px total) */}
-              <div className="mt-2 min-h-[16.5rem] rounded-[1rem] bg-mint-50 p-6 dark:bg-[#0A1712] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:ring-1 dark:ring-inset dark:ring-white/[0.05]">
+              <div className="mt-2 min-h-[13rem] rounded-[1rem] bg-mint-50 p-4 dark:bg-[#0A1712] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] dark:ring-1 dark:ring-inset dark:ring-white/[0.05] sm:min-h-[16.5rem] sm:p-6">
                 <pre className="whitespace-pre-wrap break-words font-mono text-[0.8125rem] leading-[1.7] text-forest-700 dark:text-mint-200 dark:[text-shadow:0_0_18px_rgba(52,211,153,0.25)] lg:text-[0.875rem]">
                   <code>
                     {t.hero.code}
@@ -206,9 +206,9 @@ export default function Hero() {
               subtitle={t.hero.cards[0].subtitle}
             />
 
-            {/* ---- Floating card: kanan atas (UI/UX Design) ---- */}
+            {/* ---- Floating card: kanan atas (UI/UX Design) — dari sm agar HP tidak sesak ---- */}
             <FloatingCard
-              position="-right-3 -top-6 lg:-right-8 lg:-top-8"
+              position="hidden sm:block -right-3 -top-6 lg:-right-8 lg:-top-8"
               animation="animate-float-up"
               delay="-2.4s"
               icon={Figma}
@@ -216,9 +216,9 @@ export default function Hero() {
               subtitle={t.hero.cards[2].subtitle}
             />
 
-            {/* ---- Floating card: kanan bawah (Game Unity 2D) ---- */}
+            {/* ---- Floating card: kanan bawah (Game Unity 2D) — dari sm ---- */}
             <FloatingCard
-              position="-bottom-6 -right-3 lg:-bottom-8 lg:-right-8"
+              position="hidden sm:block -bottom-6 -right-3 lg:-bottom-8 lg:-right-8"
               animation="animate-float-down"
               delay="-1.4s"
               icon={Gamepad2}

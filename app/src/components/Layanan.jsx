@@ -12,7 +12,7 @@ export default function Layanan() {
     <section
       id="layanan"
       ref={ref}
-      className={`relative overflow-hidden border-t border-line bg-white py-24 dark:border-white/10 dark:bg-[#132019] md:py-28 ${
+      className={`relative overflow-hidden border-t border-line bg-white section-y dark:border-white/10 dark:bg-[#132019] ${
         inView ? 'in-view' : ''
       }`}
     >
@@ -33,19 +33,19 @@ export default function Layanan() {
           subtitle={t.layanan.subtitle}
         />
 
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
+        <div className="mt-8 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3">
           {services.map((service, index) => {
             const copy = t.layanan.items[service.id];
 
             return (
               <article
                 key={service.id}
-                className="reveal card flex flex-col p-7"
+                className="reveal card flex flex-col p-6 sm:p-7"
                 style={{ transitionDelay: `${index * 90}ms` }}
               >
                 <div className="flex items-start justify-between">
                   <span
-                    className="flex h-12 w-12 items-center justify-center rounded-xl bg-mint-100 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200"
+                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-mint-100 text-forest-700 dark:bg-mint-200/10 dark:text-mint-200 sm:h-12 sm:w-12"
                     aria-hidden="true"
                   >
                     <service.icon className="h-5 w-5" />
@@ -55,7 +55,7 @@ export default function Layanan() {
                   </span>
                 </div>
 
-                <h3 className="mt-6 text-xl font-extrabold tracking-[-0.02em] text-ink dark:text-white">
+                <h3 className="mt-5 text-lg font-extrabold tracking-[-0.02em] text-ink dark:text-white sm:mt-6 sm:text-xl">
                   {copy.title}
                 </h3>
 

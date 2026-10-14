@@ -108,9 +108,23 @@
 }
 
 @layer components {
-  /* Kontainer utama: max 1100px, rata tengah, padding 24px */
+  /* Kontainer utama: max 1100px, rata tengah, padding 24px (20px di HP) */
   .container-x {
-    @apply mx-auto w-full max-w-container px-6;
+    @apply mx-auto w-full max-w-container px-5 sm:px-6;
+  }
+
+  /* Padding vertikal section — rapat di HP, lega di desktop */
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  /* Baris chip yang bisa digeser di HP — scrollbar disembunyikan */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
   /* Label mono kecil di atas judul section */

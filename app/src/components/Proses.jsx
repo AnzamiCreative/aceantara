@@ -11,7 +11,7 @@ export default function Proses() {
     <section
       id="proses"
       ref={ref}
-      className={`relative overflow-hidden border-t border-line bg-white py-24 dark:border-white/10 dark:bg-[#132019] md:py-28 ${
+      className={`relative overflow-hidden border-t border-line bg-white section-y dark:border-white/10 dark:bg-[#132019] ${
         inView ? 'in-view' : ''
       }`}
     >
@@ -32,7 +32,7 @@ export default function Proses() {
           subtitle={t.proses.subtitle}
         />
 
-        <div className="relative mt-14">
+        <div className="relative mt-10 sm:mt-14">
           {/* Garis horizontal penghubung (desktop) */}
           <span
             className="absolute left-0 right-0 top-[1.375rem] hidden h-px bg-line dark:bg-white/15 md:block"
@@ -44,11 +44,11 @@ export default function Proses() {
             aria-hidden="true"
           />
 
-          <ol className="grid gap-9 md:grid-cols-4 md:gap-4">
+          <ol className="grid gap-7 sm:gap-9 md:grid-cols-4 md:gap-4">
             {t.proses.steps.map((step, index) => (
               <li
                 key={step.title}
-                className="reveal relative flex gap-5 md:flex-col md:items-center md:gap-4 md:text-center"
+                className="reveal relative flex gap-4 sm:gap-5 md:flex-col md:items-center md:gap-4 md:text-center"
                 style={{ transitionDelay: `${index * 80}ms` }}
               >
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-forest-700 font-mono text-sm font-medium text-white ring-4 ring-white dark:bg-mint-200 dark:text-forest-900 dark:ring-[#132019] md:ring-0">
